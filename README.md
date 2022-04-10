@@ -28,7 +28,8 @@ get all transactions:
 and delete it by id in request param:
 ![image](https://user-images.githubusercontent.com/63502583/162629518-091046f6-dbee-4c90-9d01-961603eff2d5.png)
 
-eureka and api gateway are expose on specific port but other microservices using random ports but eureka registering them.
+eureka and api gateway are expose on specific port but other microservices using random ports but eureka registering them. 
+
 eureka dashboard:
 ![image](https://user-images.githubusercontent.com/63502583/162629567-55078d9f-f806-4a23-b2b7-ac98f3a612dd.png)
 
