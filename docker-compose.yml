@@ -12,9 +12,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     restart: always
-    deploy:
-      mode: replicated
-      replicas: 2
 
   db:
     image: postgres
