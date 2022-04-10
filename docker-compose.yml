@@ -1,0 +1,52 @@
+version : '3'
+
+services:
+  user-api:
+    build: ./user-api
+    depends_on:
+      - db
+      - eureka-server
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 2
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+        - POSTGRES_USER=compose-postgres
+        - POSTGRES_PASSWORD=compose-postgres
+    restart: always
+
+  eureka-server:
+    build: ./eureka
+    restart: always
+    ports:
+      - "8010:8010"
+
+  spring-cloud-gateway:
+    build: ./ApiGateway
+    ports:
+      - "8011:8011"
+    depends_on:
+      - eureka-server
+    restart: always
+
+
+  cryptocurrency-api:
+    build: ./cryptocurrency-api
+    depends_on:
+      - db
+      - eureka-server
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+        - SPRING_DATASOURCE_USERNAME=compose-postgres
+        - SPRING_DATASOURCE_PASSWORD=compose-postgres
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    restart: always
